@@ -8,19 +8,16 @@ CONFIG += console
 CONFIG -= app_bundle
 
 TEMPLATE = app
+INCLUDEPATH += "C:/opencv/build/include"
+LIBS += -LC:\\opencv\\build\\x64\\vc12\\bin\*.dll
 
-<<<<<<< HEAD
 SOURCES += main.cpp \
-    core/Environment.cpp
+    core/Environment.cpp \
+    core/Template.cpp
 
 HEADERS += \
     core/Template.h \
     core/Environment.h
-=======
-SOURCES += main.cpp
 
-HEADERS += \
-    environment.h \
-    spider.h \
-    agent.h
->>>>>>> origin/master
+
+

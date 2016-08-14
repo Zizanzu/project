@@ -1,6 +1,10 @@
 #ifndef TEMPLATE_H
 #define TEMPLATE_H
+#include <cmath>
+#include <time.h>
 #include <istream>
+#include <iostream>
+#include <fstream> //ifstream
 
 using namespace std;
 

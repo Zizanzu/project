@@ -13,13 +13,15 @@ public:
         return x * y + dy * x + dx;
     }
 
+
     inline byte getValue(int dx, int dy){
         return pixels[x * y + dy * x + dx];
     }
     inline void setValue(int dx, int dy, byte pix){
-        pixels[x * y + dy * x + dx] = t;
+        pixels[x * y + dy * x + dx] = pix;
     }
 
+    bool writeImage(const char* fn);
 
     void getNeighbors(int idx, int *neigh, int &size);
 
