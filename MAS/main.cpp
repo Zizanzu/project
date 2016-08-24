@@ -1,41 +1,21 @@
+#include <QtWidgets/QApplication>
+
 #include <core/template.h>
 #include <core/environment.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
-
+using namespace cv;
 
 int main(int argc, char *argv[])
 {
 
     //QCoreApplication a(argc, argv);
-
-    cout << argv[1] << endl;
-
-    Mat im_rgb  = imread(argv[1]);
-    Mat im_gray;
-    cvtColor(im_rgb,im_gray,CV_RGB2GRAY);
-
-    imwrite(argv[2],im_gray);
-
-    namedWindow( "Result window", CV_WINDOW_AUTOSIZE );
-    imshow( "Result window", im_gray );
+    cout << "Hello World!" << endl;
+    Mat im_gray = imread(argv[1],CV_LOAD_IMAGE_GRAYSCALE);
 
     Environment *env = new Environment();
-    env->createEnvironment(argv[2], im_gray.cols, im_gray.rows,125);
-    int idx = 0;
-    for(int i=0; i < im_gray.cols; i++){
-        cout << i << ": ";
-        for(int j=0; j <  im_gray.rows; j++){
-
-            env->tostring(idx);
-            idx++;
-        }
-        cout << endl;
-     }
-
-    env->writeImage(argv[3]);
-
-    //remove(argv[2]);
-
-    waitKey(0);
+    env->createEnvironment(argv[1],1000,471,125);
+    cout << env->pixels << endl;
     return 0;
 }

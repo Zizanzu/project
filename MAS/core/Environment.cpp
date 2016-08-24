@@ -1,6 +1,5 @@
 #include "template.h"
 #include "environment.h"
-#include <winsock.h>
 
 bool Environment::createEnvironment(const char* fn, int dx, int dy, int grayScale){
 
@@ -17,17 +16,6 @@ bool Environment::createEnvironment(const char* fn, int dx, int dy, int grayScal
     int length = x * y , idx = 0, size = sizeof(byte);
     pixels = new byte[length];
     unsigned char c;
-
-    unsigned int width, height;
-
-    file.seekg(16);
-    file.read((char *)&width, 4);
-    file.read((char *)&height, 4);
-
-    width = ntohl(width);
-    height = ntohl(height);
-
-    cout << " is " << width << " pixels wide and " << height << " pixels high.\n";
 
     while (idx < length) {
         file.read((char*) &c, size);

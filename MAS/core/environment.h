@@ -21,14 +21,8 @@ public:
         pixels[x * y + dy * x + dx] = pix;
     }
 
-    int getSize(){
-       return x*y;
-    }
-
-    void tostring(int idx);
-
     bool writeImage(const char* fn);
-    bool writeImage(const char* fn, byte *image);
+
     void getNeighbors(int idx, int *neigh, int &size);
 
 };
