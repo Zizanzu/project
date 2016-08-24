@@ -46,10 +46,14 @@ bool Environment::writeImage(const char* fn) {
     return true;
 }
 
-void Environment::getNeighbors(int idx, int *neigh, int &size){
+void Environment::tostring(int idx) {
+    int py = idx % (x * y) / x;
+    int px = idx % (x * y) % x;
+    cout << "(" << px << "," << py << ":" << (int) pixels[idx]
+            << ")"<< " ";
+}
 
-    size = 0;
-    x = y = 3;
+void Environment::getNeighbors(int idx, int *neigh, int &size){
 
     int py = idx % (x * y) / x;
     int px = idx % (x * y) % x;
@@ -59,6 +63,8 @@ void Environment::getNeighbors(int idx, int *neigh, int &size){
             continue;
         for(int m = -1; m <= 1; m++){
             if(m + px < 0 || m + px >=x)
+                continue;
+            if(m == 0 && n == 0)
                 continue;
             neigh[size++] = getIdx(m + px, n + py);
         }
