@@ -1,7 +1,8 @@
 #include "template.h"
 #include "environment.h"
+#include <winsock.h>
 
-bool Environment::createEnvironment(const char *fn, int dx, int dy, int grayScale){
+bool Environment::createEnvironment(const char* fn, int dx, int dy, int grayScale){
 
     x = dx;
     y = dy;
@@ -9,15 +10,26 @@ bool Environment::createEnvironment(const char *fn, int dx, int dy, int grayScal
 
     ifstream file;
     file.open(fn, ios::binary);
-    if(!file){
-        cerr << "Cannot open the file image" << fn << endl;
+    if (!file) {
+        cerr << "Cannot open the file image " << fn << endl;
         return false;
     }
-    int length = x * y, idx = 0, size = sizeof(byte);
+    int length = x * y , idx = 0, size = sizeof(byte);
     pixels = new byte[length];
-    byte c;
+    unsigned char c;
 
-    while(idx < length){
+    unsigned int width, height;
+
+    file.seekg(16);
+    file.read((char *)&width, 4);
+    file.read((char *)&height, 4);
+
+    width = ntohl(width);
+    height = ntohl(height);
+
+    cout << " is " << width << " pixels wide and " << height << " pixels high.\n";
+
+    while (idx < length) {
         file.read((char*) &c, size);
         pixels[idx++] = c;
     }
@@ -30,7 +42,7 @@ bool Environment::writeImage(const char* fn) {
     ofstream file;
     file.open(fn, ios::binary);
     if (!file) {
-        cerr << "Cannot save the files image MRI 3D" << fn << endl;
+        cerr << "Cannot save the files image " << fn << endl;
         return false;
     }
     int tmp;
@@ -46,20 +58,25 @@ bool Environment::writeImage(const char* fn) {
     return true;
 }
 
-void Environment::getNeighbors(int idx, int *neigh, int &size){
-
-    size = 0;
-    x = y = 3;
-    cout << "Id 1, 1: " << getIdx(1, 1) << endl;
+void Environment::tostring(int idx) {
     int py = idx % (x * y) / x;
     int px = idx % (x * y) % x;
-    cout << "Px: " << px << endl;
-    cout << "Py: " << py << endl;
+    cout << "(" << px << "," << py << ":" << (int) pixels[idx]
+            << ")"<< " ";
+}
+
+void Environment::getNeighbors(int idx, int *neigh, int &size){
+
+    int py = idx % (x * y) / x;
+    int px = idx % (x * y) % x;
+
     for(int n = -1; n <= 1; n++){
         if(n + py < 0 || n + py >= y)
             continue;
         for(int m = -1; m <= 1; m++){
             if(m + px < 0 || m + px >=x)
+                continue;
+            if(m == 0 && n == 0)
                 continue;
             neigh[size++] = getIdx(m + px, n + py);
         }
