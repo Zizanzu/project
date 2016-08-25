@@ -6,6 +6,7 @@ vector<string> &split(const string &s, char delim, vector<string> &elems) {
     string item;
     while (getline(ss, item, delim)) {
         elems.push_back(item);
+        //elems.push_back("\n");
     }
     return elems;
 }
@@ -22,7 +23,8 @@ istream& operator >>(istream& ins, map<string, string>& d) {
     vector<string> x;
     // For each (key, value) pair in the file
     while (getline(ins, s)) {
-        string::size_type begin = s.find_first_not_of(" \f\t\v");
+        //string::size_type begin = s.find_first_not_of(" \f\t\v\r");
+        string::size_type begin = s.find_first_not_of(" \f\t\v\r\n");
 
         // Skip blank lines
         if (begin == string::npos)

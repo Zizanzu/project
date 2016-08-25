@@ -1,6 +1,7 @@
 #include <core/template.h>
 #include <core/environment.h>
-
+#include <magent/spidersegmentation.h>
+#include <core/config.h>
 
 
 int main(int argc, char *argv[])
@@ -34,7 +35,31 @@ int main(int argc, char *argv[])
 
     env->writeImage(argv[3]);
 
-    //remove(argv[2]);
+    Config *config = new Config();
+    config->readFile(argv[4]);
+
+
+
+
+    Environment *rsEnv = new Environment();
+
+    SpiderSegmentation *spiderSg = new SpiderSegmentation(config, env);
+
+    //spiderSg->SpiderSegmentation(config, env);
+
+    spiderSg->excute(rsEnv);
+    cout << "Result "<< endl;
+    int idx1 = 0;
+    for(int i=0; i < im_gray.cols; i++){
+            cout << i << ": ";
+            for(int j=0; j <  im_gray.rows; j++){
+
+                rsEnv->tostring(idx1);
+                idx1++;
+            }
+            cout << endl;
+         }
+
 
     waitKey(0);
     return 0;

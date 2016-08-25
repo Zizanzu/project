@@ -77,6 +77,8 @@ void SpiderSegmentation::initialize(){
     si->pSaturation = atof(conf->infos["pSaturation"].c_str());
     si->constantWeight = atof(conf->infos["constantWeight"].c_str());
 
+
+
     //detectHistogram();
     initAgents();
     initDragline();

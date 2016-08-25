@@ -7,7 +7,7 @@
 
 class Posision {
 public:
-    byte x, y, z;
+    byte x, y;
     Posision(byte _x, byte _y) {
         x = _x;
         y = _y;

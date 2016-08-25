@@ -1,0 +1,9 @@
+spider_number_colony=1
+spider_agent_per_colony=1
+backprobability=0.5
+pAttractSelf=0.5
+pAttractOther=0.5
+pSaturation=0.5
+constantWeight=123
+spider_iterator=40
+spider_nbDl=20
